@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase History</title>
+    <style>
+        /* Your styles for purchase history page here */
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Purchase History</h1>
+
+    <div id="purchase-history">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Purchase Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchase_history %}
+                <tr>
+                    <td>{{ purchase.product_name }}</td>
+                    <td>{{ purchase.count }}</td>
+                    <td>{{ purchase.purchase_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Extract JSON data from a script tag
+        var purchaseHistoryData = {{ purchase_history | tojson | safe }};
+        
+        // Display formatted JSON
+        var formattedJson = JSON.stringify(purchaseHistoryData, null, 2);
+        var preElement = document.createElement('pre');
+        preElement.textContent = formattedJson;
+        document.getElementById('purchase-history').appendChild(preElement);
+    </script>
+</body>
+
+</html>
